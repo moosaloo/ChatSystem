@@ -48,3 +48,9 @@ packages*/
 
 *.exe
 !NuGet.exe
+
+/bin
+/obj
+*.user
+*.suo
+*.sln.cache
