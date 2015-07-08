@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ChatSystem.Models.Room>
+@{
+    ViewBag.Title = "چت گروهی";
+    var roomNames = Model.Select(a => new SelectListItem
+    {
+        Text = a.Name,
+        Value = a.Name
+    });
+}
+
+<div style="width:100%" ng-controller="mainCtrl">
+    <div class="panel panel-info" style="margin-top:30px; margin-left:20px">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-6"><h3 class="panel-title">چت گروهی زمان واقعی</h3></div>
+                <div class="col-sm-3 pull-right">
+                    @Html.DropDownList("roomNames", roomNames, new { @class = "form-control", ng_disabled = "inRoom", id = "roomNames" })
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <button ng-show="inRoom" ng-click="loadOldMessages()" class="btn btn-warning btn-sm pull-right"> لود پیغام های گدشته</button>
+                    <button ng-hide="inRoom" ng-click="joinRoom()" class="btn btn-primary btn-sm pull-right">پیوستن به اتاق</button>
+                    <button ng-show="inRoom" ng-click="leaveRoom()" class="btn btn-warning btn-sm pull-right">خروج از اتاق</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+                <div ng-repeat="msg in messages">
+                    <p class="alert alert-danger">
+                       {{msg.message}}
+                    </p>
+                </div>
+        </div>
+
+        <div class="panle-footer">
+            <div class="row">
+                <div class="col-md-5 ">
+                    <input ng-disabled="!inRoom" ng-model="newMessage" class="form-control pull-right" style="width:100%" type="text" placeholder="پیغام" />
+                    <button ng-disabled="!inRoom" ng-click="sendMessage()" class="pull-right btn btn-primary">ارسال</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
